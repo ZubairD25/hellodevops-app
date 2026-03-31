@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hellodevops-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hellodevops-app
+  template:
+    metadata:
+      labels:
+        app: hellodevops-app
+    spec:
+      containers:
+      - name: hellodevops-app
+        image: zubaird25/hellodevops-app:v1
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hellodevops-app
+spec:
+  selector:
+    app: hellodevops-app
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: NodePort
